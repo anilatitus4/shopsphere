@@ -15,21 +15,21 @@ steps:
 
   ### Build and Push Products Backend ###
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/shopsphere-12/products:latest', './backend/products']
+    args: ['build', '-t', 'gcr.io/shopsphere-12/products:latest', './backend']
   
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/shopsphere-12/products:latest']
 
   ### Build and Push Inventory Backend ###
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/shopsphere-12/inventory:latest', './backend/inventory']
+    args: ['build', '-t', 'gcr.io/shopsphere-12/inventory:latest', './backend']
   
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/shopsphere-12/inventory:latest']
 
   ### Build and Push Orders Backend ###
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/shopsphere-12/orders:latest', './backend/orders']
+    args: ['build', '-t', 'gcr.io/shopsphere-12/orders:latest', './backend']
   
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/shopsphere-12/orders:latest']
