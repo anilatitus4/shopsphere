@@ -1,5 +1,17 @@
-FROM python:3.9-slim
+# Use official Python image
+FROM python:3.10-slim
+
+# Set working directory
 WORKDIR /app
-COPY . /app
-RUN pip install Flask
+
+# Copy files
+COPY . .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expose port
+EXPOSE 8080
+
+# Run app
 CMD ["python", "inventory.py"]
