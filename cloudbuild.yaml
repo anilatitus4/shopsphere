@@ -1,0 +1,64 @@
+steps:
+  ### Build and Push Frontend ###
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/shopsphere-12/frontend:latest', './frontend']
+  
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/shopsphere-12/frontend:latest']
+
+  ### Build and Push Admin ###
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/shopsphere-12/admin:latest', './admin']
+  
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/shopsphere-12/admin:latest']
+
+  ### Build and Push Products Backend ###
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/shopsphere-12/products:latest', './backend/products']
+  
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/shopsphere-12/products:latest']
+
+  ### Build and Push Inventory Backend ###
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/shopsphere-12/inventory:latest', './backend/inventory']
+  
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/shopsphere-12/inventory:latest']
+
+  ### Build and Push Orders Backend ###
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/shopsphere-12/orders:latest', './backend/orders']
+  
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/shopsphere-12/orders:latest']
+
+  ### Deploy Frontend ###
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args: ['run', 'deploy', 'frontend', '--image', 'gcr.io/shopsphere-12/frontend:latest', '--region', 'us-central1', '--allow-unauthenticated']
+
+  ### Deploy Admin ###
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args: ['run', 'deploy', 'admin', '--image', 'gcr.io/shopsphere-12/admin:latest', '--region', 'us-central1', '--allow-unauthenticated']
+
+  ### Deploy Products ###
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args: ['run', 'deploy', 'products', '--image', 'gcr.io/shopsphere-12/products:latest', '--region', 'us-central1', '--allow-unauthenticated']
+
+  ### Deploy Inventory ###
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args: ['run', 'deploy', 'inventory', '--image', 'gcr.io/shopsphere-12/inventory:latest', '--region', 'us-central1', '--allow-unauthenticated']
+
+  ### Deploy Orders ###
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args: ['run', 'deploy', 'orders', '--image', 'gcr.io/shopsphere-12/orders:latest', '--region', 'us-central1', '--allow-unauthenticated']
+
+timeout: 1200s
+options:
+  logging: CLOUD_LOGGING_ONLY
